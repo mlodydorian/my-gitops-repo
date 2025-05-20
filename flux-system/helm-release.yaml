@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: my-gitops-app
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./my-gitops-app
+      sourceRef:
+        kind: GitRepository
+        name: my-gitops-repo
+        namespace: flux-system
+      interval: 1m
+  values:
+    replicaCount: 1
+    image:
+      repository: 192.168.56.10:5000/my-gitops-app
+      tag: "1.0.0"
+    ingress:
+      enabled: true
+      className: traefik
+      hosts:
+        - host: my-gitops-app.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+
