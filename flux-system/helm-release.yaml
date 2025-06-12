@@ -10,7 +10,7 @@ spec:
       chart: ./my-gitops-app
       sourceRef:
         kind: GitRepository
-        name: my-gitops-repo
+        name: flux-system
         namespace: flux-system
       interval: 1m
   values:
